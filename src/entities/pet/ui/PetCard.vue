@@ -6,24 +6,25 @@
       <img :src="pet.imageUri" />
     </div>
     <div class="properties">
-      <div v-for="p in properties" :key="p.name" :style="{ background: p.color }" :class="p.circle ? 'rounded' : ''">{{
-        p.name }}</div>
+      <PetProperties :pet />
     </div>
     <div class="wrapper">
       <!-- <p class="age">{{ pet.age }}</p> -->
       <p class="name">{{ pet.name }}</p>
-      <p class="price">{{ pet.price }}</p>
+      <p class="price">{{ price }}</p>
+    </div>
+
+    <div class="action">
+      <slot name="action" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { rarityColors, type PetItem } from '../model/types';
-import getPropertiesStyle from '../utils/get-pet-propery-style';
+import PetProperties from './PetProperties.vue';
 
-const props = defineProps<{ pet: PetItem }>()
-
-const properties = computed(() => getPropertiesStyle(props.pet))
+defineProps<{ pet: PetItem, price: string }>()
 </script>
 
 <style scoped lang="scss">
@@ -48,8 +49,19 @@ const properties = computed(() => getPropertiesStyle(props.pet))
   }
 
   &:hover {
-    box-shadow: 0px 0px 18px #00000026
+    box-shadow: 0px 0px 18px #00000026;
+
+    & .action {
+      display: flex;
+    }
   }
+}
+
+.action {
+  display: none;
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
 }
 
 .properties {

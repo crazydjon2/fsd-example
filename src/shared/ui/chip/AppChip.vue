@@ -1,6 +1,5 @@
 <template>
     <button class="category-tab"  @click="emit('click')">
-        <!-- Любой контент: иконка + текст, только иконка, бейдж и т.д. -->
         <slot />
     </button>
 </template>

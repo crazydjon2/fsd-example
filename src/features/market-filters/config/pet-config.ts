@@ -1,6 +1,4 @@
-import PriceFilter from "@features/price-filter";
-import PropertiesFilter from "@features/properties-filter";
-import RarityFilter from "@features/rarity-filter";
+import { PriceFilter, RarityFilter, PropertiesFilter } from '@features/market-filters'
 
 export const petConfig = {
     top: {

@@ -32,8 +32,8 @@ export interface PetsApiResponse {
 
 export const rarityColors: Record<PetRarity, string> = {
   common: '#4891FF',
-  uncommon: '#40BB18CC',
-  rare: '#7E10D4',
+  uncommon: '#7E10D4',
+  rare: '#40BB18CC',
   'ultra_rare': '#E51A2ECC',
   legendary: '#1E1E1E',
   default: 'white'
