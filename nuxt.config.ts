@@ -26,7 +26,8 @@ export default defineNuxtConfig({
   },
   css: [
     '~/shared/styles/reset.scss',
-    '~/shared/styles/font.scss'
+    '~/shared/styles/font.scss',
+    '~/shared/styles/global.scss'
   ],
 
   alias: {
@@ -63,7 +64,10 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "@shared/styles/variables.scss" as *;',
+                  additionalData: `
+          @use "@shared/styles/variables.scss" as *;
+          @use "@shared/styles/breakpoints.scss" as *;
+        `,
         },
       },
     },

@@ -4,7 +4,6 @@
 
 <script setup async lang="ts">
 import { useUserStore } from '@entities/user';
-import { useI18n } from '.nuxt/imports';
 
 const { setLocale } = useI18n()
 const { user } = storeToRefs(useUserStore())

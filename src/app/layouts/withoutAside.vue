@@ -3,8 +3,6 @@
     <AppHeader />
     <MobileNavigation v-if="isLaptop" />
     <div class="container__content">
-      <AppAside />
-
       <main>
         <slot />
       </main>

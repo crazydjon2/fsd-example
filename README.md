@@ -26,3 +26,7 @@ yarn preview
 
 # Линтинг и проверка типов
 yarn lint
+
+# Запуск докер образа
+docker-compose build --no-cache
+docker-compose up

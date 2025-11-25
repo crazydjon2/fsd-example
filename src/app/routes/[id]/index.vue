@@ -1,8 +1,6 @@
 <template>
   <NuxtLayout name="default">
-    <template #main>
       <MarketPage />
-    </template>
   </NuxtLayout>
 </template>
 

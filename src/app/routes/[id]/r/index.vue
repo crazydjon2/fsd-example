@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout name="without-aside">
         <div>
-            HELP
+            R
         </div>
     </NuxtLayout>
 </template>

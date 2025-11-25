@@ -3,7 +3,7 @@
     <div v-if="pet.rare" class="rarity"
       :style="{ background: rarityColors[pet.rare] ? rarityColors[pet.rare] : rarityColors.default }" />
     <div>
-      <img :src="pet.imageUri" />
+      <NuxtImg loading="lazy" :modifiers="{ quality: 80 }" :src="pet.imageUri" class="img" />
     </div>
     <div class="properties">
       <PetProperties :pet />
@@ -44,8 +44,9 @@ defineProps<{ pet: PetItem, price: string }>()
 
   transition: 0.3s;
 
-  & img {
+  & .img {
     max-height: 78px;
+    min-height: 78px;
   }
 
   &:hover {
@@ -53,6 +54,12 @@ defineProps<{ pet: PetItem, price: string }>()
 
     & .action {
       display: flex;
+    }
+  }
+
+  & .action {
+    @include laptop {
+      display: block !important;
     }
   }
 }
@@ -78,7 +85,7 @@ defineProps<{ pet: PetItem, price: string }>()
     display: flex;
     align-items: center;
     justify-content: center;
-      border-radius: 4px;
+    border-radius: 4px;
     padding: 3px 4px;
     font-size: 14px;
     aspect-ratio: 1/1;

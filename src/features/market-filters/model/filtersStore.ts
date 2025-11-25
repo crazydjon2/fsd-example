@@ -16,6 +16,30 @@ export const useFilterStore = defineStore('useFilterStore', () => {
   const name = ref()
   const minPrice = ref()
   const maxPrice = ref()
+  const rarities = ref<string[]>([])
+
+  const numberOfAppliedFilters = computed(() => {
+    let count = 0
+    if (name.value) {
+      count++
+    }
+    if (minPrice.value) {
+      count++
+    }
+    if (maxPrice.value) {
+      count++
+    }
+    if (selectedProperties.value.length) {
+      count = count + selectedProperties.value.length
+    }
+    if (pickedTypes.value.length) {
+      count = count + pickedTypes.value.length
+    }
+    if (rarities.value.length) {
+      count = count + rarities.value.length
+    }
+    return count
+  })
 
   const setFilter = (key: keyof FilterTypes, value: string | string[]) => {
     if (value && value.length) {
@@ -55,7 +79,6 @@ export const useFilterStore = defineStore('useFilterStore', () => {
     })
   }
 
-  const rarities = ref<string[]>([])
   function toggleRarity(value: string) {
     if (rarities.value.includes(value)) {
       rarities.value = rarities.value.filter(v => v !== value)
@@ -155,5 +178,5 @@ const resetFilter = () => {
   const setName = debounce(_setName, 400)     // 400 мс — идеально для поиска
   const setPrice = debounce(_setPrice, 400)
 
-  return { setFilter, filters, setProperties, allTypes, initFilter, resolveType, pickedTypes, filterTypes, setName, setPrice, resetFilter, toggleRarity, rarities, selectedProperties, name, minPrice, maxPrice }
+  return { setFilter, filters, setProperties, allTypes, initFilter, resolveType, pickedTypes, filterTypes, setName, setPrice, resetFilter, toggleRarity, rarities, selectedProperties, name, minPrice, maxPrice, numberOfAppliedFilters }
 })

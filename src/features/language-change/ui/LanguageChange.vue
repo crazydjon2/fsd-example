@@ -33,7 +33,6 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@entities/user'
-import { useI18n } from '.nuxt/imports'
 
 const { changeLanguage } = useUserStore()
 const { user } = storeToRefs(useUserStore())
@@ -59,7 +58,6 @@ const select = async (code: 'ru' | 'en') => {
 
 watchEffect(async () => {
   if (user.value.language) {
-    console.log(user.value.language)
     currentLang.value = user.value.language as ('ru' | 'en')
     await setLocale(user.value.language as ('ru' | 'en'))
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="cart-pet-item" @click.stop>
-    <img :src="pet.imageUri" :alt="pet.name" class="pet-avatar" />
+    <NuxtImg loading="lazy" :modifiers="{ quality: 80 }" :src="pet.imageUri" :alt="pet.name" class="pet-avatar" />
 
     <div class="pet-info">
       <div class="pet-subtitle">{{ pet.name }}</div>
@@ -169,6 +169,7 @@ defineProps<{
   background: #fee2e2;
   color: #ef4444;
 }
+
 .rarity {
   position: absolute;
   width: 2px;
