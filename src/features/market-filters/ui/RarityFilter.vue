@@ -2,24 +2,29 @@
   <AppAccordion>
     <template #title>Редкость</template>
     <div class="wrapper">
-      <div
-        v-for="item in options"
-        :key="item.value"
-        class="item"
-        v-tooltip="item.name"
-        :class="rarities.includes(item.value) && 'active'"
-        :style="{ background: item.color }"
-        @click="toggleRarity(item.value)"
-      >
-        <div class="item--accent" :style="{ background: item.hoverColor }" />
-      </div>
+      <template v-if="!isLaptop">
+        <div v-for="item in options" :key="item.value" class="item" v-tooltip="item.name"
+          :class="rarities.includes(item.value) && 'active'" :style="{ background: item.color }"
+          @click="toggleRarity(item.value)">
+          <div class="item--accent" :style="{ background: item.hoverColor }" />
+        </div>
+      </template>
+      <template v-else>
+        <AppChip v-for="item in options" :key="item.value" @click="toggleRarity(item.value)">
+          <span>{{ item.name }}</span>
+          <Icon v-if="rarities.includes(item.value)" name="material-symbols:close" style="color: black" />
+        </AppChip>
+      </template>
     </div>
   </AppAccordion>
 </template>
 
 <script setup lang="ts">
 import { useFilterStore } from '@features/market-filters';
-import { AppAccordion } from '@shared/ui';
+import { useIsLaptop } from '@shared/lib/useMediaQuery';
+import { AppAccordion, AppChip } from '@shared/ui';
+
+const isLaptop = useIsLaptop()
 
 defineProps<{
   options: {

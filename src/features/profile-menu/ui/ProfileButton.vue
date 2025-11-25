@@ -1,7 +1,7 @@
 <template>
   <div class="user-profile">
     <!-- Название проекта и ссылка "Профиль" -->
-    <div class="user-info">
+    <div v-if="!isLaptop" class="user-info">
       <div class="project-name">{{ user.name }}</div>
       <div class="profile-link">Профиль</div>
     </div>
@@ -27,10 +27,12 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@entities/user';
+import { useIsLaptop } from '@shared/lib/useMediaQuery';
+
+const isLaptop = useIsLaptop()
 
 const { user } = storeToRefs(useUserStore())
 
-// Красивый случайный градиент (можно задать свои цвета)
 const gradients = [
   'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
   'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
@@ -40,7 +42,6 @@ const gradients = [
   'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
 ]
 const gradient = computed(() => {
-  // Хэш от имени → один и тот же цвет для одного пользователя
   let hash = 0
   for (let i = 0; i < user.value.name.length; i++)
     hash = user.value.name.charCodeAt(i) + ((hash << 5) - hash)

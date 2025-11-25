@@ -2,24 +2,27 @@
 	<header class="header">
 		<div class="wrapper">
 			<div class="header__left">
+				<ToogleNavigationButton v-if="isDesktop && !isLaptop" />
 				<NuxtImg src="/img/logo.png" />
-				<div class="header__links">
+				<div v-if="!isDesktop" class="header__links">
 					<NuxtLink activeClass="--active" to="/pet">{{ $t('links.market') }}</NuxtLink>
-					<NuxtLink activeClass="--active">{{ $t('links.items') }}</NuxtLink>
-					<NuxtLink activeClass="--active">{{ $t('links.sell') }}</NuxtLink>
-					<NuxtLink activeClass="--active">{{ $t('links.robucs') }}</NuxtLink>
-					<NuxtLink activeClass="--active">{{ $t('links.help') }}</NuxtLink>
+					<NuxtLink activeClass="--active" to="/pet/items">{{ $t('links.items') }}</NuxtLink>
+					<NuxtLink activeClass="--active" to="/pet/buy">{{ $t('links.sell') }}</NuxtLink>
+					<NuxtLink activeClass="--active" to="/pet/r">{{ $t('links.robucs') }}</NuxtLink>
+					<NuxtLink activeClass="--active" to="/pet/help">{{ $t('links.help') }}</NuxtLink>
 				</div>
 			</div>
 			<div class="header__right">
-				<BalanceButton />
-				<LanguageChange />
-				<VDropdown :distance="6" strategy="fixed">
-					<ProfileButton />
-					<template #popper>
-						<ProfileMenu />
-					</template>
-				</VDropdown>
+				<ClientOnly>
+					<BalanceButton v-if="!isLaptop" class="no-mobile" />
+					<LanguageChange />
+					<VDropdown v-if="!isLaptop" :distance="6" strategy="fixed" class="no-mobile">
+						<ProfileButton />
+						<template #popper>
+							<ProfileMenu />
+						</template>
+					</VDropdown>
+				</ClientOnly>
 			</div>
 		</div>
 		<div class="cart">
@@ -33,6 +36,12 @@ import { CartWidget } from '@widgets/cart';
 import { ProfileButton, ProfileMenu } from '@features/profile-menu';
 import { LanguageChange } from '@features/language-change'
 import { BalanceButton } from '@features/add-balance';
+import { ToogleNavigationButton } from '@features/navigation';
+
+import { useIsDesktop, useIsLaptop } from '@shared/lib/useMediaQuery';
+
+const isLaptop = useIsLaptop()
+const isDesktop = useIsDesktop()
 </script>
 
 <style scoped lang="scss">
@@ -87,6 +96,10 @@ import { BalanceButton } from '@features/add-balance';
 			}
 
 		}
+
+		@include desktop {
+			display: none;
+		}
 	}
 
 	&__right {
@@ -94,6 +107,10 @@ import { BalanceButton } from '@features/add-balance';
 		display: flex;
 		align-items: center;
 		gap: 14px;
+
+		@include tablet {
+			padding-right: 0;
+		}
 	}
 
 	& .cart {

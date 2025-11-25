@@ -1,0 +1,5 @@
+.no-mobile {
+    @include desktop {
+        display: none;
+    }
+}

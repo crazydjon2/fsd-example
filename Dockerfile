@@ -29,5 +29,6 @@ EXPOSE 3000
 
 # Копируем только то, что нужно для запуска
 COPY --from=base /app/.output ./
+COPY --from=base /app/src/server/data ./src/server/data/
 
 CMD ["node", "server/index.mjs"]

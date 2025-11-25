@@ -1,17 +1,15 @@
 <template>
   <ClientOnly>
-    <Teleport to="#aside-content">
-      <div class="filters-container">
-        <div class="wrapper">
-          <h1>Фильтр</h1>
-          <div class="refresh" @click="resetFilter">
-            <p>Сбросить</p>
-            <Icon name="material-symbols:close" class="close-icon" style="color: grey" />
-          </div>
+    <div class="filters-container">
+      <div class="wrapper">
+        <h1>Фильтр <span v-if="numberOfAppliedFilters" style="color: red">{{ numberOfAppliedFilters }}</span></h1>
+        <div class="refresh" @click="resetFilter">
+          <p>Сбросить</p>
+          <Icon name="material-symbols:close" class="close-icon" style="color: grey" />
         </div>
-        <component v-for="(fc, index) in filterConfig" :key="index" :is="fc.component" v-bind="fc.props" />
       </div>
-    </Teleport>
+      <component v-for="(fc, index) in filterConfig" :key="index" :is="fc.component" v-bind="fc.props" />
+    </div>
   </ClientOnly>
 </template>
 
@@ -21,8 +19,13 @@ import filterMapper from '@features/market-filters/config/filter-mapper'
 import { useFilterStore } from '@features/market-filters'
 
 const { resetFilter } = useFilterStore()
+const { numberOfAppliedFilters } = storeToRefs(useFilterStore())
 
 const filterConfig = filterMapper(route.params.id as string).filters
+
+onUnmounted(() => {
+  resetFilter()
+})
 </script>
 
 <style scoped lang="scss">

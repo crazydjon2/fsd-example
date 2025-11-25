@@ -1,38 +1,53 @@
 <template>
-  <div class="filter">
-    <TypeFilter v-if="filterConfig.types" />
-    <div class="filter__bottom">
-      <div class="input">
-        <NameFilter v-if="filterConfig.search" />
-      </div>
-      <PickedTypes v-if="filterConfig.types" />
-    </div>
-  </div>
-  <div class="market-grid">
-    <div ref="scrollRef" class="grid-container" :style="{ height: `${containerHeight}px` }">
-      <div v-for="(virtualRow, index) in virtualItems" :key="index" :style="{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: `${virtualRow.size}px`,
-        transform: `translateY(${virtualRow.start}px)`
-      }" class="grid-row">
-        <template v-for="col in columnsPerRow" :key="col">
-          <div v-if="hasPetAt(virtualRow.index, col - 1)" class="grid-cell">
-            <PetCard v-if="getPetAt(virtualRow.index, col - 1)" :pet="getPetAt(virtualRow.index, col - 1)" :price="format(getPetAt(virtualRow.index, col - 1).price)">
-              <template #action>
-                <AddToCartButton :pet="getPetAt(virtualRow.index, col - 1)" />
-              </template>
-            </PetCard>
-            <PetSkeletonCard v-else />
-          </div>
-        </template>
-      </div>
-    </div>
+  <div>
+    <div class="filter">
+      <ClientOnly>
+        <TypeFilter v-if="filterConfig.types && !isLaptop" class="no-mobile" />
+        <div class="filter__bottom">
+          <ToogleButton v-if="isDesktop && !isLaptop" />
 
-    <div v-if="!isLoading && !isFetchingNextPage && allPets.length === 0" class="empty">
-      Питомцев не найдено
+          <AdaptivePopup v-if="isLaptop">
+            <template #trigger>
+              <AppButton>
+                <Icon name="material-symbols:tune" />
+              </AppButton>
+            </template>
+            <FilterRender />
+          </AdaptivePopup>
+          <div class="input">
+            <NameFilter v-if="filterConfig.search" />
+          </div>
+          <PickedTypes v-if="filterConfig.types && !isLaptop" />
+        </div>
+      </ClientOnly>
+    </div>
+    <div class="market-grid">
+      <div ref="scrollRef" class="grid-container" :style="{ height: `${containerHeight}px` }">
+        <div v-for="(virtualRow, index) in virtualItems" :key="index" :style="{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: `${virtualRow.size}px`,
+          transform: `translateY(${virtualRow.start}px)`
+        }" class="grid-row">
+          <template v-for="col in columnsPerRow" :key="col">
+            <div v-if="hasPetAt(virtualRow.index, col - 1)" class="grid-cell">
+              <PetCard v-if="getPetAt(virtualRow.index, col - 1)" :pet="getPetAt(virtualRow.index, col - 1)"
+                :price="format(getPetAt(virtualRow.index, col - 1).price)">
+                <template #action>
+                  <AddToCartButton :pet="getPetAt(virtualRow.index, col - 1)" />
+                </template>
+              </PetCard>
+              <PetSkeletonCard v-else />
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <div v-if="!isLoading && !isFetchingNextPage && allPets.length === 0" class="empty">
+        Питомцев не найдено
+      </div>
     </div>
   </div>
 </template>
@@ -45,13 +60,21 @@ import { usePetsQuery } from '@entities/pet/model/use-pets-query'
 
 import { AddToCartButton } from '@features/add-to-cart'
 import { NameFilter } from '@features/market-filters'
-import { TypeFilter, PickedTypes } from '@features/market-filters'
+import { TypeFilter, PickedTypes, FilterRender } from '@features/market-filters'
+import { ToogleButton } from '@features/toogle-aside'
+
+import { AdaptivePopup, AppButton } from '@shared/ui'
 
 import filterMapper from '@features/market-filters/config/filter-mapper'
 import { useUserStore } from '@entities/user'
 import type { PetItem } from '@entities/pet/model/types'
 import { usePriceFormatter } from '@features/formart-price'
 import { useFilterStore } from '@features/market-filters'
+
+import { useIsDesktop, useIsLaptop, useIsTablet } from '@shared/lib/useMediaQuery';
+
+const isLaptop = useIsLaptop()
+const isDesktop = useIsDesktop()
 
 const { format } = usePriceFormatter()
 const { currency } = storeToRefs(useUserStore())
@@ -97,7 +120,7 @@ const updateColumns = () => {
 const rowVirtualizer = useVirtualizer({
   get count() { return rowCount.value },
   getScrollElement: () => scrollRef.value || null,
-  estimateSize: () => 190,
+  estimateSize: () => 210,
 })
 
 const virtualItems = computed(() => rowVirtualizer.value.getVirtualItems())
@@ -152,8 +175,8 @@ onUnmounted(() => {
 
 .grid-row {
   display: grid;
-  gap: 12px;
-  padding: 0 16px;
+  gap: 16px;
+  // padding: 0 16px;
   box-sizing: border-box;
   grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
 }
@@ -185,6 +208,7 @@ onUnmounted(() => {
 
   &__bottom {
     display: flex;
+    align-items: center;
     gap: 16px;
 
     & .input {
