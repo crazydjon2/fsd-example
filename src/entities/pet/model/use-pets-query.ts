@@ -3,11 +3,12 @@ import { petApi } from '../api/pet-api'
 
 const PAGE_SIZE = 72
 
-export const usePetsQuery = (filters?: Ref<any>) => {
+export const usePetsQuery = (filters?: Ref<any>, currency?: Ref<string>) => {
+  const queryKey = computed(() => ['pets', filters?.value, currency?.value] as const)
   return useInfiniteQuery({
-    queryKey: ['pets', filters?.value] as const,
+    queryKey,
     queryFn: async ({ pageParam = 1 }) => {
-      return await petApi.getPets(filters?.value, pageParam, PAGE_SIZE)
+      return await petApi.getPets(filters?.value, pageParam, PAGE_SIZE, currency?.value)
     },
     getNextPageParam: (lastPage, allPages) => {
       const totalFetched = allPages.flatMap(p => p.items).length

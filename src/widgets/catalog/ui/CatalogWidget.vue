@@ -3,9 +3,9 @@
     <TypeFilter v-if="filterConfig.types" />
     <div class="filter__bottom">
       <div class="input">
-        <NameFilter v-if="filterConfig.search"  />
+        <NameFilter v-if="filterConfig.search" />
       </div>
-      <PickedTypes v-if="filterConfig.types"  />
+      <PickedTypes v-if="filterConfig.types" />
     </div>
   </div>
   <div class="market-grid">
@@ -20,7 +20,11 @@
       }" class="grid-row">
         <template v-for="col in columnsPerRow" :key="col">
           <div v-if="hasPetAt(virtualRow.index, col - 1)" class="grid-cell">
-            <PetCard v-if="getPetAt(virtualRow.index, col - 1)" :pet="getPetAt(virtualRow.index, col - 1)" />
+            <PetCard v-if="getPetAt(virtualRow.index, col - 1)" :pet="getPetAt(virtualRow.index, col - 1)" :price="format(getPetAt(virtualRow.index, col - 1).price)">
+              <template #action>
+                <AddToCartButton :pet="getPetAt(virtualRow.index, col - 1)" />
+              </template>
+            </PetCard>
             <PetSkeletonCard v-else />
           </div>
         </template>
@@ -39,20 +43,26 @@ import { useVirtualizer } from '@tanstack/vue-virtual'
 import { PetCard, PetSkeletonCard } from '@entities/pet'
 import { usePetsQuery } from '@entities/pet/model/use-pets-query'
 
-import { TypeFilter, PickedTypes } from '@features/type-filter'
-import NameFilter from '@features/name-filter'
-import useFilterStore from '@features/market-filters/model/filtersStore'
+import { AddToCartButton } from '@features/add-to-cart'
+import { NameFilter } from '@features/market-filters'
+import { TypeFilter, PickedTypes } from '@features/market-filters'
 
+import filterMapper from '@features/market-filters/config/filter-mapper'
+import { useUserStore } from '@entities/user'
+import type { PetItem } from '@entities/pet/model/types'
+import { usePriceFormatter } from '@features/formart-price'
+import { useFilterStore } from '@features/market-filters'
+
+const { format } = usePriceFormatter()
+const { currency } = storeToRefs(useUserStore())
 const { initFilter } = useFilterStore()
 const { filters } = storeToRefs(useFilterStore())
 
 const route = useRoute()
-import filterMapper from '@features/market-filters/config/filter-mapper'
-
 const filterConfig = filterMapper(route.params.id as string).top
 initFilter(filterConfig.types)
 
-const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = await usePetsQuery(filters)
+const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = await usePetsQuery(filters, currency)
 
 const allPets = computed(() => data.value?.pages.flatMap(p => p.items) ?? [])
 const skeletonCount = 72
@@ -93,7 +103,7 @@ const rowVirtualizer = useVirtualizer({
 const virtualItems = computed(() => rowVirtualizer.value.getVirtualItems())
 
 const hasPetAt = (row: number, col: number) => (row * columnsPerRow.value + col) < petsWithSkeletons.value.length
-const getPetAt = (row: number, col: number) => petsWithSkeletons.value[row * columnsPerRow.value + col]
+const getPetAt = (row: number, col: number): PetItem => petsWithSkeletons.value[row * columnsPerRow.value + col]
 
 // Следим за изменением данных
 watch([petsWithSkeletons, columnsPerRow], () => {
@@ -137,6 +147,7 @@ onUnmounted(() => {
 
 .grid-container {
   position: relative;
+  margin-top: 16px
 }
 
 .grid-row {

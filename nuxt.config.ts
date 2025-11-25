@@ -12,6 +12,7 @@ export default defineNuxtConfig({
 
   // Папки и структура
   srcDir: 'src',
+  serverDir: 'src/server',
   dir: {
     pages: 'app/routes',
     layouts: 'app/layouts',
@@ -46,7 +47,8 @@ export default defineNuxtConfig({
       { code: 'ru', iso: 'ru-RU', file: 'ru.json', name: 'Русский' },
       { code: 'en', iso: 'en-US', file: 'en.json', name: 'English' },
     ],
-    defaultLocale: 'ru',
+    strategy: 'prefix_and_default',
+    defaultLocale: 'en',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
@@ -82,6 +84,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@pinia/nuxt',
     '@nuxtjs/critters',
+    '@nuxt/icon'
   ],
 
   devtools: { enabled: true },

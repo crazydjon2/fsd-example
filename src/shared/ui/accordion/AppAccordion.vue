@@ -7,7 +7,9 @@
                 <span class="header-title">Фильтр</span>
             </slot>
 
-            <div class="chevron" :class="{ 'rotated': isOpen }">></div>
+            <div class="chevron" :class="{ 'rotated': isOpen }">
+                <Icon name="material-symbols:chevron-right-rounded" />
+            </div>
         </button>
 
         <!-- Анимируемый контент -->
