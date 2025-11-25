@@ -1,11 +1,10 @@
-<!-- components/BalanceDisplay.vue -->
 <template>
   <div class="balance-wrapper">
     <div class="balance-info">
       <div v-if="user.balance" class="balance-amount">
         {{ formatPrice(user.balance, user) }}
       </div>
-      <div class="balance-label">Ваш баланс</div>
+      <div class="balance-label">{{ $t('balance') }}</div>
     </div>
 
     <button class="topup-btn" @click="addToBalance(1000)">

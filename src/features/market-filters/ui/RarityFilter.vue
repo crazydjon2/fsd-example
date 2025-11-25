@@ -1,6 +1,6 @@
 <template>
   <AppAccordion>
-    <template #title>Редкость</template>
+    <template #title>{{ $t('filter.rarity') }}</template>
     <div class="wrapper">
       <template v-if="!isLaptop">
         <div v-for="item in options" :key="item.value" class="item" v-tooltip="item.name"

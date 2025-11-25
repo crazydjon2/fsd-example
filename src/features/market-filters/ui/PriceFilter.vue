@@ -1,7 +1,7 @@
 <template>
   <AppAccordion>
     <template #title>
-      Цена
+      {{ $t('filter.price') }}
     </template>
     <div class="wrapper">
       <AppInput v-model="minPrice" type="number" placeholder="0.00">

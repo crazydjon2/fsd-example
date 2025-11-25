@@ -3,7 +3,7 @@
     <!-- Название проекта и ссылка "Профиль" -->
     <div v-if="!isLaptop" class="user-info">
       <div class="project-name">{{ user.name }}</div>
-      <div class="profile-link">Профиль</div>
+      <div class="profile-link">{{ $t('profile') }}</div>
     </div>
 
     <!-- Аватар с fallback на первую букву -->

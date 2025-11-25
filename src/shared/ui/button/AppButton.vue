@@ -5,19 +5,12 @@
     :class="{ large: size === 'large' }"
     @click="emit('click')"
   >
-    <!-- Любой контент: иконка + текст, только иконка, бейдж и т.д. -->
     <slot />
   </button>
 </template>
 
 <script setup>
 const props = defineProps({
-  /** Активна ли вкладка */
-  active: {
-    type: Boolean,
-    default: false
-  },
-  /** Размер: 'default' | 'large' */
   size: {
     type: String,
     default: 'default',

@@ -1,22 +1,18 @@
-<!-- components/CartFooter.vue -->
 <template>
     <div class="cart-footer">
-        <!-- Сумма покупки -->
         <div v-if="items.length" class="total-block">
-            <span class="total-label">Сумма покупки</span>
+            <span class="total-label">{{ $t('cart.sum') }}</span>
             <span class="total-amount">{{ format(totalPrice) }} ₽</span>
         </div>
 
-        <!-- Кнопка купить -->
         <button class="buy-button" @click="buy" :disabled="!items.length">
             <Icon name="heroicons:shopping-cart-20-solid" class="buy-icon" filled />
-            <span>Купить</span>
+            <span>{{ $t('cart.buy') }}</span>
         </button>
         <p v-if="error" style="color: red">{{ error }}</p>
 
-        <!-- Очистить корзину -->
         <button class="clear-button" @click="clearCart" :disabled="!items.length">
-            Очистить корзину
+            {{ $t('cart.clear') }}
         </button>
     </div>
 </template>

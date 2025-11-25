@@ -1,10 +1,9 @@
 <template>
     <div class="base-accordion">
-        <!-- Заголовок -->
         <button class="accordion-header" @click="isOpen = !isOpen" type="button" :aria-expanded="isOpen"
             :aria-controls="`accordion-panel-${uid}`">
             <slot name="title">
-                <span class="header-title">Фильтр</span>
+                <span class="header-title"></span>
             </slot>
 
             <div class="chevron" :class="{ 'rotated': isOpen }">
@@ -12,7 +11,6 @@
             </div>
         </button>
 
-        <!-- Анимируемый контент -->
         <Transition name="slide-fade" @enter="onEnter" @leave="onLeave">
             <div v-show="isOpen" :id="`accordion-panel-${uid}`" class="accordion-content" role="region">
                 <div class="content-inner">
@@ -24,14 +22,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
-// Уникальный ID для доступности
 const uid = Math.random().toString(36).slice(2, 9)
 
 const isOpen = ref(true)
 
-// Плавная анимация высоты + opacity
 const onEnter = (el: Element) => {
     const element = el as HTMLElement
     element.style.height = '0'
@@ -116,7 +112,6 @@ const onLeave = (el: Element) => {
     padding: 8px 0;
 }
 
-/* Анимация */
 .slide-fade-enter-active,
 .slide-fade-leave-active {
     transition: all 0.28s ease;

@@ -1,9 +1,45 @@
 {
+    "pages": {
+        "market": {
+            "title": "STARTPETS Market",
+            "description": "STARTPETS Market"
+        }
+    },
     "links": {
         "market": "Market",
         "items": "Items",
         "sell": "Sell",
         "robucs": "Robucs",
         "help": "Help"
+    },
+    "cart": {
+        "buy": "Buy",
+        "clear": "Clear",
+        "empty": "Cart is empty",
+        "sum": "Summary"
+    },
+    "language": {
+        "ru": "Russian",
+        "en": "English"
+    },
+    "filter": {
+        "name": "Filter",
+        "reset": "Reset",
+        "search": "Quick search",
+        "price": "Price",
+        "rarity": "Rarity",
+        "property": "Properties"
+    },
+    "balance": "Your balance",
+    "profile": "Profile",
+    "pet": {
+        "not-found": "There is no pets with this parameters"
+    },
+    "property": {
+        "default": "Default",
+        "neon": "Neon",
+        "mega_neon": "Mega neon",
+        "ride": "Ridable",
+        "fly": "Flyable"
     }
 }

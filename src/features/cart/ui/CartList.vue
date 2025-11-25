@@ -3,7 +3,7 @@
     <template v-if="items.length">
       <CartItem v-for="item in items" :pet="item.good" :count="item.count" :price="format(item.good.price)" />
     </template>
-    <p v-else>корзина пуста</p>
+    <p v-else>{{ $t('cart.empty') }}</p>
   </div>
 </template>
 

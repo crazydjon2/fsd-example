@@ -1,6 +1,5 @@
 <template>
     <ClientOnly>
-        <!-- Desktop: dropdown -->
         <VDropdown v-if="!isMobile" :distance="distance" strategy="fixed">
             <slot name="trigger" />
             <template #popper>
@@ -8,7 +7,6 @@
             </template>
         </VDropdown>
 
-        <!-- Mobile: modal -->
         <div v-else>
             <div @click="open = true">
                 <slot name="trigger" />

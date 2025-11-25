@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <AppInput v-model="name" type="init" white placeholder="Быстрый поиск" />
+        <AppInput v-model="name" type="init" white :placeholder="$t('filter.search')" />
     </div>
 </template>
 
