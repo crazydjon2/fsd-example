@@ -24,7 +24,7 @@
           @click="select(lang.code)"
         >
           <img :src="lang.flag" alt="" class="flag" />
-          <span>{{ lang.name }}</span>
+          <span>{{ $t('language.'+ lang.code) }}</span>
         </button>
       </div>
     </template>

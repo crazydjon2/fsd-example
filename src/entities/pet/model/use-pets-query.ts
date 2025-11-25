@@ -20,7 +20,6 @@ export const usePetsQuery = (filters?: Ref<any>, currency?: Ref<string>) => {
     },
 
     initialPageParam: 1,
-    // TODO DISABLE FOR PROD
-    staleTime: 0,
+    staleTime: 1000 * 60 * 5,
   })
 }

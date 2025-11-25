@@ -4,7 +4,7 @@
       <NuxtLink :to="route.link">
         <AppButton>
           <Icon :name="route.icon" />
-          <span>{{ route.name }}</span>
+          <span>{{ $t('links.' + route.name) }}</span>
         </AppButton>
       </NuxtLink>
     </div>
@@ -17,27 +17,27 @@ import { AppButton } from '@shared/ui';
 const routes = [
   {
     link: '/pet',
-    name: 'Market',
+    name: 'market',
     icon: 'mdi:emoticon-excited',
   },
   {
     link: '/pet/items',
-    name: 'Items',
+    name: 'items',
     icon: 'mdi:emoticon-excited',
   },
   {
     link: '/pet/buy',
-    name: 'Buy',
+    name: 'sell',
     icon: 'mdi:emoticon-excited',
   },
   {
     link: '/pet/r',
-    name: '$R',
+    name: 'robucs',
     icon: 'mdi:emoticon-excited',
   },
   {
     link: '/pet/help',
-    name: 'Help',
+    name: 'help',
     icon: 'mdi:emoticon-excited',
   }
 ]

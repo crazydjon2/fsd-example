@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import { AppHeader } from '@widgets/header';
-import AppAside from '@widgets/aside/ui/AppAside.vue';
 import { MobileNavigation } from '@features/navigation';
 import { useIsLaptop } from '@shared/lib/useMediaQuery';
 

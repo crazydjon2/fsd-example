@@ -2,9 +2,9 @@
   <ClientOnly>
     <div class="filters-container">
       <div class="wrapper">
-        <h1>Фильтр <span v-if="numberOfAppliedFilters" style="color: red">{{ numberOfAppliedFilters }}</span></h1>
+        <h1>{{ $t('filter.name') }} <span v-if="numberOfAppliedFilters" style="color: red">{{ numberOfAppliedFilters }}</span></h1>
         <div class="refresh" @click="resetFilter">
-          <p>Сбросить</p>
+          <p>{{ $t('filter.reset') }}</p>
           <Icon name="material-symbols:close" class="close-icon" style="color: grey" />
         </div>
       </div>

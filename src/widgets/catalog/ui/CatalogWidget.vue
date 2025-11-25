@@ -46,7 +46,7 @@
       </div>
 
       <div v-if="!isLoading && !isFetchingNextPage && allPets.length === 0" class="empty">
-        Питомцев не найдено
+        {{ $t('pet.not-found') }}
       </div>
     </div>
   </div>

@@ -1,9 +1,45 @@
 {
+    "pages": {
+        "market": {
+            "title": "STARTPETS Маркет",
+            "description": "STARTPETS Маркет"
+        }
+    },
     "links": {
         "market": "Маркет",
         "items": "Предметы",
         "sell": "Продажа",
         "robucs": "Робуксы",
         "help": "Помощь"
+    },
+    "cart": {
+        "buy": "Купить",
+        "clear": "Очистить",
+        "empty": "Корзина пуста",
+        "sum": "Сумма"
+    },
+    "language": {
+        "ru": "Русский",
+        "en": "Английский"
+    },
+    "filter": {
+        "name": "Фильтр",
+        "reset": "Сбросить",
+        "search": "Быстрый поиск",
+        "price": "Цена",
+        "rarity": "Редкость",
+        "property": "Свойства"
+    },
+    "profile": "Профиль",
+    "balance": "Ваш баланс",
+    "pet": {
+        "not-found": "Питомец не найден"
+    },
+    "property": {
+        "default": "Обычное",
+        "neon": "Неон",
+        "mega_neon": "Мего неон",
+        "ride": "Ездовое",
+        "fly": "Летающее"
     }
 }
